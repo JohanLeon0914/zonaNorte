@@ -10,19 +10,23 @@ const Timer = ({ initialSeconds }: TimerProps) => {
   const [isRunning, setIsRunning] = useState<boolean>(false);
 
   useEffect(() => {
-    let intervalId: NodeJS.Timeout;
-
+    let intervalId: NodeJS.Timeout | null = null;
+  
     if (isRunning) {
       intervalId = setInterval(() => {
         setSeconds((prevSeconds) => prevSeconds - 1);
       }, 1000);
     }
-
-    if (seconds === 0) {
+  
+    if (seconds === 0 && intervalId) {
       clearInterval(intervalId);
     }
-
-    return () => clearInterval(intervalId);
+  
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
   }, [seconds, isRunning]);
 
   const handlePauseClick = () => {
