@@ -59,14 +59,14 @@ const Timer = ({ initialSeconds }: TimerProps) => {
   return (
     <>
       <div
-        className="rounded-lg p-4 text-center h-[100%]"
+        className="rounded-lg p-4 text-center h-[100%] bg-white"
         style={{
           backgroundImage: 'url("/img/taekondo_logo.png")',
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div className="text-5xl font-bold mb-4 text-red-500">{formatTime(seconds)}</div>
+        <div className="text-6xl font-bold mb-4 text-red-700">{formatTime(seconds)}</div>
         <div className="flex justify-center space-x-4">
           <button
             className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
