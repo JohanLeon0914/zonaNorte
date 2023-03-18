@@ -66,7 +66,7 @@ const Timer = ({ initialSeconds }: TimerProps) => {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div className="text-6xl font-bold mb-4 text-red-700">{formatTime(seconds)}</div>
+        <div className="text-4xl font-bold mb-4 text-red-700">{formatTime(seconds)}</div>
         <div className="flex justify-center space-x-4">
           <button
             className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"

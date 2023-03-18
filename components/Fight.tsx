@@ -30,10 +30,10 @@ const ScoreCounter = ({
   let colorTraducido = color === "red" ? "RED" : "BLUE";
   return (
     <div className={`text-white rounded-lg p-4 ${bgColor} mt-5`}>
-      <h1 className="text-4xl font-bold mb-4">PUNTOS {colorTraducido.toUpperCase()}</h1>
-      <div className="text-4xl font-bold mb-4">{score}</div>
-      <h1 className="text-4xl font-bold mb-4">FALTAS {colorTraducido.toUpperCase()}</h1>
-      <div className="text-4xl font-bold mb-4">{faults}</div>
+      <h1 className="text-3xl font-bold mb-4">PUNTOS {colorTraducido.toUpperCase()}</h1>
+      <div className="text-3xl font-bold mb-4">{score}</div>
+      <h1 className="text-3xl font-bold mb-4">FALTAS {colorTraducido.toUpperCase()}</h1>
+      <div className="text-3xl font-bold mb-4">{faults}</div>
       <div className="flex justify-center space-x-4">
         <button
           className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
