@@ -26,36 +26,36 @@ const ScoreCounter = ({
   onDecrement5,
   incrementFaults,
 }: ScoreCounterProps) => {
-  const bgColor = color === "red" ? "bg-red-500" : "bg-blue-500";
-  let colorTraducido = color === "red" ? "RED" : "BLUE";
+  const bgColor = color === "red" ? "from-red-500 to-red-700" : "from-blue-500 to-blue-700";
+  let colorTraducido = color === "red" ? "ROJO" : "AZUL";
   return (
-    <div className={`text-white rounded-lg p-4 ${bgColor} mt-5`}>
-      <h1 className="text-3xl font-bold mb-4">PUNTOS {colorTraducido.toUpperCase()}</h1>
-      <div className="text-3xl font-bold mb-4">{score}</div>
-      <h1 className="text-3xl font-bold mb-4">FALTAS {colorTraducido.toUpperCase()}</h1>
-      <div className="text-3xl font-bold mb-4">{faults}</div>
-      <div className="flex justify-center space-x-4">
+    <div className={`relative mt-5 text-white rounded-2xl p-5 sm:p-6 bg-gradient-to-br ${bgColor} shadow-xl ring-1 ring-white/10`}>
+      <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight mb-2">PUNTOS {colorTraducido.toUpperCase()}</h1>
+      <div className="text-5xl sm:text-6xl font-black mb-4 drop-shadow">{score}</div>
+      <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight mb-2">FALTAS {colorTraducido.toUpperCase()}</h1>
+      <div className="text-5xl sm:text-6xl font-black mb-5 drop-shadow">{faults}</div>
+      <div className="flex flex-wrap justify-center gap-3">
         <button
-          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+          className="rounded-xl bg-green-500 hover:bg-green-400 px-4 py-2.5 font-semibold text-white shadow focus:outline-none focus:ring-2 focus:ring-green-300"
           onClick={onIncrement}
         >
           +1
         </button>
         <button
-          className="bg-red-700 hover:bg-red-800 text-white font-bold py-2 px-4 rounded"
+          className="rounded-xl bg-red-700 hover:bg-red-600 px-4 py-2.5 font-semibold text-white shadow focus:outline-none focus:ring-2 focus:ring-red-400"
           onClick={onDecrement}
         >
           -1
         </button>
 
         <button
-          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+          className="rounded-xl bg-green-500 hover:bg-green-400 px-4 py-2.5 font-semibold text-white shadow focus:outline-none focus:ring-2 focus:ring-green-300"
           onClick={onIncrement3}
         >
           +3
         </button>
         <button
-          className="bg-red-700 hover:bg-red-800 text-white font-bold py-2 px-4 rounded"
+          className="rounded-xl bg-red-700 hover:bg-red-600 px-4 py-2.5 font-semibold text-white shadow focus:outline-none focus:ring-2 focus:ring-red-400"
           onClick={onDecrement3}
         >
           -3
@@ -63,22 +63,22 @@ const ScoreCounter = ({
         
       </div>
 
-      <div className="flex justify-center space-x-4 mt-2">
+      <div className="mt-3 flex flex-wrap justify-center gap-3">
         <button
-          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+          className="rounded-xl bg-green-500 hover:bg-green-400 px-4 py-2.5 font-semibold text-white shadow focus:outline-none focus:ring-2 focus:ring-green-300"
           onClick={onIncrement5}
         >
           +5
         </button>
         <button
-          className="bg-red-700 hover:bg-red-800 text-white font-bold py-2 px-4 rounded"
+          className="rounded-xl bg-red-700 hover:bg-red-600 px-4 py-2.5 font-semibold text-white shadow focus:outline-none focus:ring-2 focus:ring-red-400"
           onClick={onDecrement5}
         >
           -5
         </button>
 
         <button
-          className="bg-red-700 hover:bg-red-800 text-white font-bold py-2 px-10 rounded"
+          className="rounded-xl bg-white bg-opacity-90 text-gray-900 hover:bg-white px-6 py-2.5 font-extrabold shadow focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-60"
           onClick={incrementFaults}
         >
           Falta
@@ -253,8 +253,8 @@ const Fight = () => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-4">
-      <div className="flex gap-4">
+    <div className="flex flex-col items-center gap-6">
+      <div className="flex gap-6 flex-col sm:flex-row">
         <ScoreCounter
           color="red"
           score={redScore}
@@ -281,11 +281,11 @@ const Fight = () => {
         />
       </div>
       {winner ? (
-        <div className="text-2xl font-bold mt-4 items-center">
+        <div className="text-2xl font-bold mt-4 items-center text-center">
           {getWinner()}
           <br />
           <button
-            className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
+            className="mt-2 rounded-xl bg-yellow-400 hover:bg-yellow-300 text-gray-900 font-semibold py-2 px-5 shadow focus:outline-none focus:ring-2 focus:ring-yellow-300"
             onClick={handleRestart}
           >
             Reiniciar
@@ -293,7 +293,7 @@ const Fight = () => {
         </div>
       ) : (
         <button
-          className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
+          className="rounded-xl bg-yellow-400 hover:bg-yellow-300 text-gray-900 font-semibold py-2 px-5 shadow focus:outline-none focus:ring-2 focus:ring-yellow-300"
           onClick={handleTerminateClick}
         >
           Terminar pelea

@@ -1,26 +1,24 @@
-
 type ScoreCounterProps = {
-  color: 'red' | 'blue',
-  score: number,
-  onIncrement: () => void,
-  onDecrement: () => void,
-}
+  color: 'red' | 'blue';
+  score: number;
+  onIncrement: () => void;
+  onDecrement: () => void;
+};
 
 const ScoreCounter = ({ color, score, onIncrement, onDecrement }: ScoreCounterProps) => {
-  const bgColor = color === 'red' ? 'bg-red-500' : 'bg-blue-500'
-  let colorSpain = color === 'red' ? "Rojo" : "Azul"
+  const gradient = color === 'red' ? 'from-red-500 to-red-700' : 'from-blue-500 to-blue-700';
+  const colorSpain = color === 'red' ? 'ROJO' : 'AZUL';
 
   return (
-    <div className={`text-white rounded-lg p-4 ${bgColor}`}>
-      <h1 className="text-3xl font-bold mb-4">Puntos {colorSpain.toUpperCase()} </h1>
-      <div className="text-5xl font-bold mb-4">{score}</div>
-      <div className="flex justify-center space-x-4">
-        <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" onClick={onIncrement}>+1</button>
-        <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={onDecrement}>-1</button>
+    <div className={`text-white rounded-2xl p-5 bg-gradient-to-br ${gradient} shadow-xl ring-1 ring-white/10`}>
+      <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight mb-3">Puntos {colorSpain.toUpperCase()} </h1>
+      <div className="text-5xl sm:text-6xl font-black mb-5 drop-shadow">{score}</div>
+      <div className="flex justify-center gap-3">
+        <button className="rounded-xl bg-green-500 hover:bg-green-400 text-white font-semibold py-2.5 px-4 shadow focus:outline-none focus:ring-2 focus:ring-green-300" onClick={onIncrement}>+1</button>
+        <button className="rounded-xl bg-red-600 hover:bg-red-500 text-white font-semibold py-2.5 px-4 shadow focus:outline-none focus:ring-2 focus:ring-red-400" onClick={onDecrement}>-1</button>
       </div>
     </div>
-  )
-}
-
+  );
+};
 
 export default ScoreCounter;

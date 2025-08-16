@@ -59,35 +59,36 @@ const Timer = ({ initialSeconds }: TimerProps) => {
   return (
     <>
       <div
-        className="rounded-lg p-4 text-center h-[100%] bg-white"
+        className="relative overflow-hidden rounded-2xl p-6 text-center h-[100%] border border-white border-opacity-10 bg-gray-900 bg-opacity-40 backdrop-blur-xl shadow-2xl"
         style={{
           backgroundImage: 'url("/img/taekondo_logo.png")',
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div className="text-6xl font-bold mb-4 text-red-700">{formatTime(seconds)}</div>
-        <div className="flex justify-center space-x-4">
+        <div className="absolute inset-0 bg-gradient-to-b from-black bg-opacity-20 via-black bg-opacity-30 to-black bg-opacity-60" />
+        <div className="relative text-7xl sm:text-8xl font-extrabold mb-5 tracking-widest text-red-400 drop-shadow">{formatTime(seconds)}</div>
+        <div className="relative flex flex-wrap justify-center gap-3">
+                     <button
+             className="inline-flex items-center justify-center rounded-xl px-5 py-2.5 font-semibold text-white shadow-lg transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 bg-green-600 hover:bg-green-500 focus:ring-green-400"
+             onClick={handlePauseClick}
+           >
+             {isRunning ? "Pausar" : "Reanudar"}
+           </button>
+           <button
+             className="inline-flex items-center justify-center rounded-xl px-5 py-2.5 font-semibold text-white shadow-lg transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 bg-blue-600 hover:bg-blue-500 focus:ring-blue-400"
+             onClick={handleResetClick}
+           >
+             Reiniciar
+           </button>
           <button
-            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-            onClick={handlePauseClick}
-          >
-            {isRunning ? "Pause" : "Resume"}
-          </button>
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            onClick={handleResetClick}
-          >
-            Reset
-          </button>
-          <button
-            className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
+            className="inline-flex items-center justify-center rounded-xl px-5 py-2.5 font-semibold text-black shadow-lg transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 bg-yellow-300 hover:bg-yellow-400 focus:ring-yellow-300"
             onClick={handleIncreaseClick}
           >
             +1 min
           </button>
           <button
-            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+            className="inline-flex items-center justify-center rounded-xl px-5 py-2.5 font-semibold text-white shadow-lg transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 bg-red-600 hover:bg-red-500 focus:ring-red-400"
             onClick={handleDecreaseClick}
           >
             -1 min
