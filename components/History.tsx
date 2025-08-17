@@ -18,6 +18,8 @@ type Match = {
   blueScore: number;
   redFaults: number;
   blueFaults: number;
+  redAdvantages: number;
+  blueAdvantages: number;
   winner: string;
   duration?: string;
 };
@@ -119,6 +121,16 @@ const History = () => {
       ...fighter,
       losses: fighter.losses + 1,
       totalMatches: fighter.totalMatches + 1,
+      lastMatch: new Date().toISOString()
+    };
+    saveFighterEdit(updatedFighter);
+  };
+
+  const addAdvantage = (fighter: Fighter) => {
+    // Esta función es para agregar ventajas manualmente si es necesario
+    // Por ahora solo actualizamos la fecha del último combate
+    const updatedFighter = {
+      ...fighter,
       lastMatch: new Date().toISOString()
     };
     saveFighterEdit(updatedFighter);
@@ -281,7 +293,7 @@ const History = () => {
                         Ganador: {match.winner}
                       </div>
                       <div className="text-sm text-gray-400">
-                        Faltas: {match.redFaults} - {match.blueFaults}
+                        Faltas: {match.redFaults} - {match.blueFaults} | Ventajas: {match.redAdvantages || 0} - {match.blueAdvantages || 0}
                       </div>
                     </div>
                   </div>

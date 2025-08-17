@@ -19,6 +19,8 @@ type Match = {
   blueScore: number;
   redFaults: number;
   blueFaults: number;
+  redAdvantages: number;
+  blueAdvantages: number;
   winner: string;
   duration?: string;
 };
@@ -27,6 +29,7 @@ type ScoreCounterProps = {
   color: "red" | "blue";
   score: number;
   faults: number;
+  advantages: number;
   playerName: string;
   isNameSet: boolean;
   onIncrement: () => void;
@@ -37,6 +40,8 @@ type ScoreCounterProps = {
   onDecrement3: () => void;
   onIncrement5: () => void;
   onDecrement5: () => void;
+  onAdvantageIncrement: () => void;
+  onAdvantageDecrement: () => void;
   incrementFaults: () => void;
   onNameChange: (name: string) => void;
   onNameSubmit: () => void;
@@ -48,6 +53,7 @@ const ScoreCounter = ({
   color,
   score,
   faults,
+  advantages,
   playerName,
   isNameSet,
   onIncrement,
@@ -58,6 +64,8 @@ const ScoreCounter = ({
   onDecrement3,
   onIncrement5,
   onDecrement5,
+  onAdvantageIncrement,
+  onAdvantageDecrement,
   incrementFaults,
   onNameChange,
   onNameSubmit,
@@ -121,7 +129,9 @@ const ScoreCounter = ({
       <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight mb-2">{displayName.toUpperCase()}</h1>
       <div className="text-5xl sm:text-6xl font-black mb-4 drop-shadow">{score}</div>
       <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight mb-2">FALTAS {displayName.toUpperCase()}</h1>
-      <div className="text-5xl sm:text-6xl font-black mb-5 drop-shadow">{faults}</div>
+      <div className="text-5xl sm:text-6xl font-black mb-4 drop-shadow">{faults}</div>
+      <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight mb-2">VENTAJAS {displayName.toUpperCase()}</h1>
+      <div className="text-5xl sm:text-6xl font-black mb-5 drop-shadow">{advantages}</div>
       
       {/* Primera fila: +1, -1, +2, -2 */}
       <div className="flex flex-wrap justify-center gap-3 mb-3">
@@ -179,8 +189,20 @@ const ScoreCounter = ({
         </button>
       </div>
 
-      {/* Tercera fila: Falta */}
+      {/* Tercera fila: Ventaja, Falta */}
       <div className="flex flex-wrap justify-center gap-3">
+        <button
+          className="rounded-xl bg-purple-600 hover:bg-purple-500 px-4 py-2.5 font-semibold text-white shadow focus:outline-none focus:ring-2 focus:ring-purple-300"
+          onClick={onAdvantageIncrement}
+        >
+          +Ventaja
+        </button>
+        <button
+          className="rounded-xl bg-purple-800 hover:bg-purple-700 px-4 py-2.5 font-semibold text-white shadow focus:outline-none focus:ring-2 focus:ring-purple-400"
+          onClick={onAdvantageDecrement}
+        >
+          -Ventaja
+        </button>
         <button
           className="rounded-xl bg-white bg-opacity-90 text-gray-900 hover:bg-white px-6 py-2.5 font-extrabold shadow focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-60"
           onClick={incrementFaults}
@@ -198,6 +220,8 @@ const Fight = () => {
   const [blueScore, setBlueScore] = useState(0);
   const [blueFaults, setBlueFaults] = useState(0);
   const [redFaults, setRedFaults] = useState(0);
+  const [redAdvantages, setRedAdvantages] = useState(0);
+  const [blueAdvantages, setBlueAdvantages] = useState(0);
   const [redPlayerName, setRedPlayerName] = useState("");
   const [bluePlayerName, setBluePlayerName] = useState("");
   const [redNameSet, setRedNameSet] = useState(false);
@@ -295,13 +319,15 @@ const Fight = () => {
       blueScore,
       redFaults,
       blueFaults,
+      redAdvantages,
+      blueAdvantages,
       winner: winner === "Red" ? (redPlayerName || "Peleador Rojo") : (bluePlayerName || "Peleador Azul")
     };
     
     const updatedMatches = [newMatch, ...matchHistory];
     setMatchHistory(updatedMatches);
     localStorage.setItem('jiujitsu_matches', JSON.stringify(updatedMatches));
-  }, [redPlayerName, bluePlayerName, redScore, blueScore, redFaults, blueFaults, matchHistory]);
+  }, [redPlayerName, bluePlayerName, redScore, blueScore, redFaults, blueFaults, redAdvantages, blueAdvantages, matchHistory]);
 
   // Event listener para Ctrl+Z
   useEffect(() => {
@@ -350,19 +376,24 @@ const Fight = () => {
         setMatchSaved(true);
       }
     }
-  }, [winner, redPlayerName, bluePlayerName, redScore, blueScore, redFaults, blueFaults, matchSaved, saveFighter, updateFighterStats, saveMatch]);
+  }, [winner, redPlayerName, bluePlayerName, redScore, blueScore, redFaults, blueFaults, redAdvantages, blueAdvantages, matchSaved, saveFighter, updateFighterStats, saveMatch]);
 
   const handleTerminateClick = () => {
     if(redFaults >= 3) {
       setWinner("Blue");
     } else if(blueFaults >= 3) {
       setWinner("Red");
-    }else if (redScore > blueScore) {
+    } else if (redScore > blueScore) {
       setWinner("Red");
     } else if (blueScore > redScore) {
       setWinner("Blue");
     } else if(blueScore === redScore) {
-      if(redFaults > blueFaults) {
+      // Si hay empate en puntos, verificar ventajas
+      if(redAdvantages > blueAdvantages) {
+        setWinner("Red");
+      } else if(blueAdvantages > redAdvantages) {
+        setWinner("Blue");
+      } else if(redFaults > blueFaults) {
         setWinner("Blue");
       } else if(redFaults < blueFaults) {
         setWinner("Red");
@@ -390,11 +421,33 @@ const Fight = () => {
     } 
   };
 
+  const handleRedAdvantageIncrement = () => {
+    setRedAdvantages(redAdvantages + 1);
+  };
+
+  const handleRedAdvantageDecrement = () => {
+    if (redAdvantages > 0) {
+      setRedAdvantages(redAdvantages - 1);
+    }
+  };
+
+  const handleBlueAdvantageIncrement = () => {
+    setBlueAdvantages(blueAdvantages + 1);
+  };
+
+  const handleBlueAdvantageDecrement = () => {
+    if (blueAdvantages > 0) {
+      setBlueAdvantages(blueAdvantages - 1);
+    }
+  };
+
   const handleRestart = () => {
     setBlueScore(0);
     setRedScore(0);
     setBlueFaults(0);
     setRedFaults(0);
+    setRedAdvantages(0);
+    setBlueAdvantages(0);
     setWinner(null);
     setRedNameSet(false);
     setBlueNameSet(false);
@@ -549,6 +602,10 @@ const Fight = () => {
                   <span class="stat-label">Faltas:</span>
                   <span class="stat-value">${redFaults} - ${blueFaults}</span>
                 </div>
+                <div class="stat-item">
+                  <span class="stat-label">Ventajas:</span>
+                  <span class="stat-value">${redAdvantages} - ${blueAdvantages}</span>
+                </div>
               </div>
               <div class="victory-footer">
                 <div class="victory-message">¡Excelente combate!</div>
@@ -597,6 +654,10 @@ const Fight = () => {
                 <div class="stat-item">
                   <span class="stat-label">Faltas:</span>
                   <span class="stat-value">${redFaults} - ${blueFaults}</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">Ventajas:</span>
+                  <span class="stat-value">${redAdvantages} - ${blueAdvantages}</span>
                 </div>
               </div>
               <div class="victory-footer">
@@ -648,6 +709,10 @@ const Fight = () => {
                   <span class="stat-label">Faltas:</span>
                   <span class="stat-value">${redFaults} - ${blueFaults}</span>
                 </div>
+                <div class="stat-item">
+                  <span class="stat-label">Ventajas:</span>
+                  <span class="stat-value">${redAdvantages} - ${blueAdvantages}</span>
+                </div>
               </div>
               <div class="victory-footer">
                 <div class="victory-message">¡Gran nivel de ambos peleadores!</div>
@@ -682,6 +747,7 @@ const Fight = () => {
           color="red"
           score={redScore}
           faults={redFaults}
+          advantages={redAdvantages}
           playerName={redPlayerName}
           isNameSet={redNameSet}
           onIncrement={handleRedIncrement}
@@ -692,6 +758,8 @@ const Fight = () => {
           onDecrement3={handleRedDecrement3}
           onIncrement5={handleRedIncrement5}
           onDecrement5={handleRedDecrement5}
+          onAdvantageIncrement={handleRedAdvantageIncrement}
+          onAdvantageDecrement={handleRedAdvantageDecrement}
           incrementFaults={handleRedFault}
           onNameChange={setRedPlayerName}
           onNameSubmit={handleRedNameSubmit}
@@ -702,6 +770,7 @@ const Fight = () => {
           color="blue"
           score={blueScore}
           faults={blueFaults}
+          advantages={blueAdvantages}
           playerName={bluePlayerName}
           isNameSet={blueNameSet}
           onIncrement={handleBlueIncrement}
@@ -712,6 +781,8 @@ const Fight = () => {
           onDecrement3={handleBlueDecrement3}
           onIncrement5={handleBlueIncrement5}
           onDecrement5={handleBlueDecrement5}
+          onAdvantageIncrement={handleBlueAdvantageIncrement}
+          onAdvantageDecrement={handleBlueAdvantageDecrement}
           incrementFaults={handleBlueFault}
           onNameChange={setBluePlayerName}
           onNameSubmit={handleBlueNameSubmit}
