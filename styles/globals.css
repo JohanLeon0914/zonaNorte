@@ -20,3 +20,257 @@
         @apply bg-white bg-opacity-5 backdrop-blur-xl border border-white border-opacity-10 shadow-xl rounded-2xl;
     }
 }
+
+/* Estilos personalizados para el modal de victoria */
+.victory-popup {
+  border-radius: 20px !important;
+  border: 2px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8) !important;
+  max-width: 500px !important;
+  width: 90% !important;
+}
+
+.victory-modal {
+  text-align: center;
+  padding: 20px;
+  color: white;
+  font-family: 'Inter', sans-serif;
+}
+
+.victory-header {
+  margin-bottom: 25px;
+}
+
+.trophy-icon {
+  font-size: 4rem;
+  margin-bottom: 10px;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+.victory-title {
+  font-size: 2.5rem;
+  font-weight: 900;
+  background: linear-gradient(45deg, #fbbf24, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+  text-shadow: 0 0 30px rgba(251, 191, 36, 0.5);
+}
+
+.winner-section {
+  margin-bottom: 25px;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.winner-name {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 5px;
+  color: #fbbf24;
+  text-shadow: 0 0 20px rgba(251, 191, 36, 0.7);
+}
+
+.winner-belt {
+  font-size: 1.1rem;
+  color: #94a3b8;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.score-section {
+  margin-bottom: 20px;
+}
+
+.final-score {
+  font-size: 3.5rem;
+  font-weight: 900;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.score-red {
+  color: #ef4444;
+  text-shadow: 0 0 20px rgba(239, 68, 68, 0.7);
+}
+
+.score-blue {
+  color: #3b82f6;
+  text-shadow: 0 0 20px rgba(59, 130, 246, 0.7);
+}
+
+.score-separator {
+  color: #6b7280;
+  font-weight: 300;
+}
+
+.score-label {
+  font-size: 1rem;
+  color: #94a3b8;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.stats-section {
+  margin-bottom: 20px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.1rem;
+}
+
+.stat-label {
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.stat-value {
+  color: #f1f5f9;
+  font-weight: 700;
+}
+
+.victory-footer {
+  margin-top: 20px;
+}
+
+.victory-message {
+  font-size: 1.2rem;
+  color: #e2e8f0;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.victory-confirm-btn {
+  background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+  border: none !important;
+  border-radius: 12px !important;
+  padding: 12px 30px !important;
+  font-size: 1.1rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3) !important;
+  transition: all 0.3s ease !important;
+}
+
+.victory-confirm-btn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 15px 35px rgba(239, 68, 68, 0.4) !important;
+}
+
+/* Estilos específicos para empate */
+.tie-modal .trophy-icon {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.tie-modal .victory-title {
+  background: linear-gradient(45deg, #6b7280, #9ca3af);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.tie-modal .winner-name {
+  color: #9ca3af;
+  text-shadow: 0 0 20px rgba(156, 163, 175, 0.7);
+}
+
+/* Animaciones de entrada y salida */
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes zoomOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+}
+
+.animate__zoomIn {
+  animation: zoomIn 0.6s ease-out;
+}
+
+.animate__zoomOut {
+  animation: zoomOut 0.6s ease-in;
+}
+
+/* Responsive design */
+@media (max-width: 640px) {
+  .victory-popup {
+    width: 95% !important;
+    margin: 10px !important;
+  }
+  
+  .victory-title {
+    font-size: 2rem;
+  }
+  
+  .winner-name {
+    font-size: 1.5rem;
+  }
+  
+  .final-score {
+    font-size: 2.5rem;
+  }
+  
+  .trophy-icon {
+    font-size: 3rem;
+  }
+}
